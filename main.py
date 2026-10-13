@@ -5,6 +5,7 @@ from app.handlers import router
 from aiogram.client.session.aiohttp import AiohttpSession
 import os
 from dotenv import load_dotenv
+from app.database.models import async_main
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -14,6 +15,7 @@ if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) #тут для инета
 
 async def main():
+    await async_main()
     bot = Bot(token=BOT_TOKEN, session=session)
     dp = Dispatcher()
     dp.include_router(router)
