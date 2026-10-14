@@ -6,6 +6,7 @@ import app.keyboard as kb
 import asyncio
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
+import app.database.requests as rq
 
 
 class Register(StatesGroup):
@@ -21,8 +22,10 @@ api_url_fox = "https://randomfox.ca/floof/"
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
+    await rq.set_user(message.from_user.id)
     await message.answer("Привет! Я бот!", reply_markup=kb.main)
-    await message.reply("Если хочешь получить случайную картинку животного, нажми на кнопку 'случайные картинки животных' 🐾")
+    # await message.reply("Если хочешь получить случайную картинку животного, нажми на кнопку 'случайные картинки животных' 🐾")
+
 
 
 @router.message(F.text.casefold() == "случайные картинки животных")
